@@ -72,12 +72,8 @@ class Hand(
                         acc
                     }
                 } as Map<Int, MutableSet<Card>>).values.sortedWith(Comparator { a, b ->
-                    val freqComp = -a.size.compareTo(b.size)
-                    if (freqComp != 0) {
-                        freqComp
-                    } else {
-                        -a.first().compareTo(b.first())
-                    }
+                    (-a.size.compareTo(b.size)).takeIf { it != 0 }
+                        ?: -a.first().compareTo(b.first())
                 })
 
             return when {
@@ -137,9 +133,9 @@ class Hand(
                 return true
             }
 
-            with (cards.sortedByDescending { it.number }) {
-                for (i in 0..this.size-2) {
-                    if (this[i].number != this[i+1].number + 1) {
+            with(cards.sortedByDescending { it.number }) {
+                for (i in 0..this.size - 2) {
+                    if (this[i].number != this[i + 1].number + 1) {
                         return false
                     }
                 }
