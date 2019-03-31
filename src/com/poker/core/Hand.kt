@@ -7,6 +7,7 @@ class Hand(
     private val kickers: List<Card> = listOf()
 ) {
     enum class Rank {
+        NONE,
         HIGH_CARD,
         ONE_PAIR,
         TWO_PAIR,
@@ -20,10 +21,6 @@ class Hand(
 
     val cards: List<Card>
         get() = mainCards + subCards + kickers
-
-    init {
-        require(cards.size == 5) { "Number of cards must be 5." }
-    }
 
     operator fun compareTo(other: Hand): Int {
         val rankComp = rank.compareTo(other.rank)
